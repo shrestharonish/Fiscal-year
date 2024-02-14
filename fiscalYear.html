@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fiscal Year</title>
+  </head>
+  <body>
+    <div>
+      <div>
+        <div style="display: flex">
+          <div style="margin-right: 10px">
+            <label for="startDate">Start Date: </label>
+            <input type="text" id="startDate" name="startDate" />
+          </div>
+          <div>
+            <label for="endDate">End Date: </label>
+            <input type="text" id="endDate" name="endDate" />
+          </div>
+          <button type="button" onclick="submit()">Search</button>
+        </div>
+        <div>
+          <label for="output">Output:</label>
+          <pre id="output"></pre>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let output = [];
+      function submit() {
+        const startDate = document.getElementById("startDate").value;
+        const endDate = document.getElementById("endDate").value;
+        const requestBody = {
+          startDate,
+          endDate,
+        };
+        console.log("Start Date: ", startDate);
+        console.log("End Date: ", endDate);
+
+        fetch("http://localhost:3000/api/searchFiscalYear", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestBody),
+        })
+          .then((res) => {
+            if (!res.ok) {
+              throw new Error(`Error: ${res.status} - ${res.statusText}`);
+            }
+
+            return res.json();
+          })
+          .then((data) => {
+            // Handle the JSON data received from the server
+            /* const outputList = document.getElementById("output");
+            outputList.innerHTML = ""; // Clear previous content
+
+            data.forEach((item) => {
+              const listItem = document.createElement("li");
+              listItem.textContent = JSON.stringify(item);
+              outputList.appendChild(listItem);
+            });*/
+
+            const outputElement = document.getElementById("output");
+            outputElement.textContent = JSON.stringify(data, null, 2);
+          })
+          .catch((err) => {
+            console.error("Error:", err);
+          });
+      }
+    </script>
+  </body>
+</html>
