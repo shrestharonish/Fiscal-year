@@ -38,7 +38,7 @@
         console.log("Start Date: ", startDate);
         console.log("End Date: ", endDate);
 
-        fetch("https://a128-27-34-11-47.ngrok-free.app/api/searchFiscalYear", {
+        fetch("http://localhost:3000/api/searchFiscalYear", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -69,6 +69,7 @@
           .catch((err) => {
             console.error("Error:", err);
           });
+        console.clear();
       }
     </script>
   </body>
