@@ -69,12 +69,9 @@ function callQuarter(req) {
   if (
     startingQuarter[0].quarterName == "Q3" &&
     endingQuarter[0].quarterName == "Q3" &&
-    // endingMonth > startingMonth
-    // &&
     startingMonth != 12 &&
     endingMonth == 12
   ) {
-    // console.log("1st condition");
     year_Difference = year_Difference + 1;
   } else if (
     startingQuarter[0].quarterName == "Q3" &&
@@ -82,20 +79,16 @@ function callQuarter(req) {
     startingMonth < endingMonth &&
     startingMonth != 12
   ) {
-    // console.log("2nd condition");
     year_Difference = year_Difference + 1;
   } else if (
-    // startingQuarter[0].quarterName != "Q3" &&
     startingMonth != 1 &&
     startingMonth != 2 &&
     startingMonth != 3 &&
     endingQuarter[0].quarterName == "Q3" &&
     endingMonth < startingMonth
   ) {
-    // console.log("3rd condition");
     year_Difference = year_Difference - 1;
   } else {
-    // console.log("4th condition");
     year_Difference = year_Difference;
   }
   // }
