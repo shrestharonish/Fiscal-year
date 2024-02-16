@@ -27,6 +27,7 @@ function getEndYearMonthDay(endDate) {
 function getMonthFromDateString(dateString) {
   // console.log("dateString", dateString);
   const [, month] = dateString.match(/-(\d{2})-/);
+  console.clear();
   return parseInt(month, 10);
 }
 
