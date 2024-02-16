@@ -14,17 +14,6 @@ app.use(express.static(__dirname));
 // Middleware to parse incoming request bodies as FormData
 app.use(express.urlencoded({ extended: true }));
 
-const data = [
-  {
-    year: "2026/2027",
-    quarter: ["Jan", "Feb"],
-  },
-  {
-    year: "2027/2028",
-    quarter: ["Mar", "Apr"],
-  },
-];
-
 // Set up a route to serve your HTML file
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "fiscalYear.html"));

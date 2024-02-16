@@ -13,7 +13,7 @@ class Quarter {
   }
 
   calculateStartingAndEndingQuarter() {
-    const [startingMonth, endingMonth, yearDifference] =
+    const [startingMonth, endingMonth, year_Difference] =
       this.getStartingAndEndingYearMonthDay();
 
     const startingQuarter = quarterList.filter((item) =>
@@ -28,24 +28,24 @@ class Quarter {
       endingQuarter,
       startingMonth,
       endingMonth,
-      yearDifference,
+      year_Difference,
     ];
   }
 
   getStartingAndEndingYearMonthDay() {
     const startingMonth = getStartYearMonthDay(this.starting_year).startFYMonth;
     const endingMonth = getEndYearMonthDay(this.ending_year).endFYMonth;
-    console.log("month:", endingMonth, typeof endingMonth);
+    // console.log("month:", endingMonth, typeof endingMonth);
     const startingYear = getStartYearMonthDay(this.starting_year).startFYYear;
     const endingYear = getEndYearMonthDay(this.ending_year).endFYYear;
-    const yearDifference = endingYear - startingYear;
-    return [startingMonth, endingMonth, yearDifference];
+    const year_Difference = endingYear - startingYear;
+    return [startingMonth, endingMonth, year_Difference];
   }
 }
 
 // This function runs automatically when executing Main.js
 function callQuarter(req) {
-  console.log("🚀 ~ callQuarter ~ reqBody:", req.body);
+  // console.log("🚀 ~ callQuarter ~ reqBody:", req.body);
   const quarter = new Quarter(
     String(req.body.startDate),
     String(req.body.endDate)
@@ -58,58 +58,85 @@ function callQuarter(req) {
     endingQuarter,
     startingMonth,
     endingMonth,
-    yearDifference,
+    year_Difference,
   ] = calculatedStartingAndEndingQuarter;
 
-  console.log("year difference: ", yearDifference);
+  // console.log("year difference: ", year_Difference);
 
-  console.log("both quarter here:", startingQuarter, endingQuarter);
+  // console.log("both quarter here:", startingQuarter, endingQuarter);
+
+  // if (year_Difference != 0) {
   if (
     startingQuarter[0].quarterName == "Q3" &&
     endingQuarter[0].quarterName == "Q3" &&
     // endingMonth > startingMonth
+    // &&
+    startingMonth != 12 &&
     endingMonth == 12
   ) {
-    console.log("1st condition");
-    yearDifference = yearDifference + 1;
+    // console.log("1st condition");
+    year_Difference = year_Difference + 1;
   } else if (
     startingQuarter[0].quarterName == "Q3" &&
-    // startingMonth < endingMonth
-    endingMonth == 12
+    endingQuarter[0].quarterName != "Q3" &&
+    startingMonth < endingMonth &&
+    startingMonth != 12
   ) {
-    console.log("2nd condition");
-    yearDifference = yearDifference + 1;
+    // console.log("2nd condition");
+    year_Difference = year_Difference + 1;
   } else if (
+    // startingQuarter[0].quarterName != "Q3" &&
+    startingMonth != 1 &&
+    startingMonth != 2 &&
+    startingMonth != 3 &&
     endingQuarter[0].quarterName == "Q3" &&
     endingMonth < startingMonth
   ) {
-    console.log("3rd condition");
-    yearDifference = yearDifference - 1;
+    // console.log("3rd condition");
+    year_Difference = year_Difference - 1;
   } else {
-    console.log("4th condition");
-    yearDifference = yearDifference;
+    // console.log("4th condition");
+    year_Difference = year_Difference;
   }
+  // }
 
-  console.log(
-    `starting quarter: ${startingQuarter[0].quarterName}, ending quarter: ${endingQuarter[0].quarterName}`
-  );
-  console.log(`starting month: ${startingMonth}, ending month: ${endingMonth}`);
+  // console.log(
+  //   `starting quarter: ${startingQuarter[0].quarterName}, ending quarter: ${endingQuarter[0].quarterName}`
+  // );
+  // console.log(`starting month: ${startingMonth}, ending month: ${endingMonth}`);
 
-  const [startingQuarters, endingQuarters, inBetweenQuarters] =
-    getAllFiscalYears(
-      startingQuarter[0],
-      endingQuarter[0],
-      yearDifference,
-      startingMonth,
-      endingMonth
-    );
-  console.log("startingQuarters:", startingQuarters);
-  console.log("inBetweenQuarters:", inBetweenQuarters);
-  console.log("endingQuarters:", endingQuarters);
-  const combinedArray = startingQuarters.concat(
+  const [
+    startingQuarters,
+    endingQuarters,
     inBetweenQuarters,
-    endingQuarters
+    zeroDifferenceOutput,
+  ] = getAllFiscalYears(
+    startingQuarter[0],
+    endingQuarter[0],
+    year_Difference,
+    startingMonth,
+    endingMonth
   );
+  // console.log("startingQuarters:", startingQuarters);
+  // console.log("inBetweenQuarters:", inBetweenQuarters);
+  // console.log("endingQuarters:", endingQuarters);
+  // console.log("zero diff op: ", zeroDifferenceOutput);
+  let combinedArray;
+  // console.log("Final yearDiff: ", year_Difference);
+  if (
+    year_Difference <= 0
+    // &&
+    // startingQuarters != "Q1"
+    // startingQuarter[0].quarterName == endingQuarter[0].quarterName
+  ) {
+    // console.log("here in yes diff: 0");
+    combinedArray = zeroDifferenceOutput;
+    // console.log("🚀 ~ callQuarter ~ combinedArray:", combinedArray);
+  } else {
+    // console.log("here in no diff:");
+    combinedArray = startingQuarters.concat(inBetweenQuarters, endingQuarters);
+    // console.log("final op: ", zeroDifferenceOutput);
+  }
 
   // console.log("Combined Array:", combinedArray);
   return combinedArray;
