@@ -1,9 +1,9 @@
 {
-  "name": "class_practice",
+  "name": "fiscal_year",
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "node app.js",
     "test": "jest"
   },
   "author": "",
