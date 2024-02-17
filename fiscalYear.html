@@ -4,9 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fiscal Year</title>
+
+    <link rel="stylesheet" href="./index.css" />
+
+    <link
+      href="/node_modules/bootstrap/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
   </head>
   <body>
-    <div>
+    <!-- <div>
       <div>
         <div style="display: flex">
           <div style="margin-right: 10px">
@@ -24,6 +33,61 @@
           <pre id="output"></pre>
         </div>
       </div>
+    </div> -->
+    <div class="m-4">
+      <div class="card mb-4">
+        <div class="card-header text-center">Fiscal Year</div>
+        <div class="card-body">
+          <h5 class="card-title text-center">Add Date Here</h5>
+
+          <div class="row mt-4">
+            <div class="col">
+              <label for="startDate">Start Date</label>
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="startDate"
+                  placeholder="Start Date"
+                  aria-label="Start Date"
+                  aria-describedby="basic-addon1"
+                />
+              </div>
+            </div>
+
+            <div class="col">
+              <label for="endDate">End Date</label>
+              <div class="input-group">
+                <input
+                  type="text"
+                  id="endDate"
+                  class="form-control"
+                  placeholder="End Date"
+                  aria-label="End Date"
+                  aria-describedby="basic-addon1"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="d-flex flex-row-reverse mt-4">
+            <a href="#" class="btn btn-primary col-12" onclick="submit()"
+              >Submit</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- To display the result -->
+      <!-- <div class="card" id="card" style="width: 18rem">
+        <div class="card-body">
+          <h5 class="card-title" id="year">Year:</h5>
+          <h6 class="card-subtitle mb-2 text-body-secondary">Quarters:</h6>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item" id="quarter"></li>
+          </ul>
+        </div>
+      </div> -->
+      <div id="result-container" class="d-flex flex-wrap"></div>
     </div>
 
     <script>
@@ -53,23 +117,61 @@
             return res.json();
           })
           .then((data) => {
-            // Handle the JSON data received from the server
-            /* const outputList = document.getElementById("output");
-            outputList.innerHTML = ""; // Clear previous content
+            console.log("data: ", data);
+            // const outputElement = document.getElementById("output");
+            // outputElement.textContent = JSON.stringify(data, null, 2);
+
+            const resultContainer = document.getElementById("result-container");
+            resultContainer.innerHTML = ""; // Clear previous results
 
             data.forEach((item) => {
-              const listItem = document.createElement("li");
-              listItem.textContent = JSON.stringify(item);
-              outputList.appendChild(listItem);
-            });*/
-
-            const outputElement = document.getElementById("output");
-            outputElement.textContent = JSON.stringify(data, null, 2);
+              const card = createCard(item);
+              resultContainer.appendChild(card);
+            });
           })
           .catch((err) => {
             console.error("Error:", err);
           });
-        console.clear();
+        //console.clear();
+      }
+
+      function createCard(item) {
+        const cardDiv = document.createElement("div");
+        cardDiv.className = "card mb-4 custom-card";
+
+        const cardHeader = document.createElement("div");
+        cardHeader.className = "card-header text-center";
+        cardHeader.textContent = "Fiscal Year";
+
+        const cardBody = document.createElement("div");
+        cardBody.className = "card-body";
+
+        const cardTitle = document.createElement("h5");
+        cardTitle.className = "card-title";
+        cardTitle.textContent = "Year: " + item.year;
+
+        const quartersTitle = document.createElement("h6");
+        quartersTitle.className = "card-subtitle mb-2 text-body-secondary";
+        quartersTitle.textContent = "Quarters:";
+
+        const quarterList = document.createElement("ul");
+        quarterList.className = "list-group list-group-flush";
+
+        item.quarter.forEach((subItem) => {
+          const quarterItem = document.createElement("li");
+          quarterItem.className = "list-group-item";
+          quarterItem.textContent = subItem;
+          quarterList.appendChild(quarterItem);
+        });
+
+        cardBody.appendChild(cardTitle);
+        cardBody.appendChild(quartersTitle);
+        cardBody.appendChild(quarterList);
+
+        cardDiv.appendChild(cardHeader);
+        cardDiv.appendChild(cardBody);
+
+        return cardDiv;
       }
     </script>
   </body>
