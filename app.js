@@ -51,7 +51,7 @@ app.post(
     } catch (error) {
       console.error("Error:", error);
       // Handle errors and send an appropriate response
-      res.status(500).send("Internal Server Error");
+      res.status(500).send("Internal Server Error", error);
     }
   }
 );

@@ -59,6 +59,9 @@ class Quarter {
 // This function runs automatically when executing Main.js
 function callQuarter(req) {
   // console.log("🚀 ~ callQuarter ~ reqBody:", req.body);
+  const startDate = new Date(req.body.startDate);
+  const endDate = new Date(req.body.endDate);
+
   const quarter = new Quarter(
     String(req.body.startDate),
     String(req.body.endDate)
@@ -66,6 +69,11 @@ function callQuarter(req) {
   // const quarter = new Quarter("2000-01-02", "2002-04-08");
   const calculatedStartingAndEndingQuarter =
     quarter.calculatedStartingAndEndingQuarter;
+
+  if (!(endDate - startDate > 0)) {
+    throw new Error("End date must be later than start date");
+  }
+
   let [
     startingQuarter,
     endingQuarter,
