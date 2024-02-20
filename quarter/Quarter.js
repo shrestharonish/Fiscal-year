@@ -3,22 +3,22 @@
 //   const Quarters = [
 //     {
 //       quarterName: "Q1",
-//       quartersByMonth: ["Shrawan - Ashoj"],
+//       quartersByMonth: ["Shrawan", "Bhadra", "Ashoj"],
 //       quartersByCount: [4, 5, 6],
 //     },
 //     {
 //       quarterName: "Q2",
-//       quartersByMonth: ["Kartik - Poush"],
+//       quartersByMonth: ["Kartik", "Mangsir", "Poush"],
 //       quartersByCount: [7, 8, 9],
 //     },
 //     {
 //       quarterName: "Q3",
-//       quartersByMonth: ["Magh - Chaitra"],
+//       quartersByMonth: ["Magh", "Falgun", "Chaitra"],
 //       quartersByCount: [10, 11, 12],
 //     },
 //     {
 //       quarterName: "Q4",
-//       quartersByMonth: ["Baisakh - Asadh"],
+//       quartersByMonth: ["Baisakh", "Jestha", "Asadh"],
 //       quartersByCount: [1, 2, 3],
 //     },
 //   ];
