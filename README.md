@@ -10,8 +10,6 @@ The Fiscal Year Calculator is a Node.js project designed to determine the total 
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [Features](#features)
-- [Contributing](#contributing)
 - [Tests](#tests)
 - [Questions](#questions)
 
