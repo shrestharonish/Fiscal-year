@@ -21,7 +21,7 @@ Follow these steps to set up and run the project locally:
 
 1. **Clone the Project:**
     ```bash
-    git clone https://github.com/your-username/project-name.git
+    git clone https://github.com/shrestharonish/Fiscal-year
     ```
 2. **Navigate to the Project Directory:**
     ```bash
@@ -55,6 +55,13 @@ Follow these steps to set up and run the project locally:
 
    ```http
    POST http://localhost:3000/api/searchFY
+   ```
+
+   ```json
+   {
+   "startDate": "2022-01-01",
+   "endDate": "2024-12-31"
+   }
    ```
    
 ## Tests
