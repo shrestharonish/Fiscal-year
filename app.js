@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Set up a route to serve your HTML file
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "fiscalYear.html"));
+  res.sendFile(path.join(__dirname, "index.html"));
 });
 
 // Define a route for the GET request
@@ -61,5 +61,5 @@ const PORT = process.env.PORT || 3000;
 
 // Start the server
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on PORT:${PORT}`);
 });
